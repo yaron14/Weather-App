@@ -12,7 +12,7 @@ const AppRoters = () => {
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/" component={Home} exact />
+          <Route path="/home" component={Home} exact />
           <Route path="/search" component={WeatherSearch} exact />
           <Route path="/search/:id" component={CityId} />
           <Route path="/hourly/:date" component={Hourly} />
