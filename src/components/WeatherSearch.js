@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import Home from "./Home";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default class WeatherSearch extends Component {
   constructor() {
@@ -8,7 +8,7 @@ export default class WeatherSearch extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       weatherLoc: ""
-    }
+    };
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -18,14 +18,12 @@ export default class WeatherSearch extends Component {
     return (
       <div>
         <Link to="/">Back Home</Link>
-        <form onSubmit={this.handleSubmit} >
+        <form onSubmit={this.handleSubmit}>
           <input type="text" name="search" placeholder="enter a city" />
           <button type="submit">Search!</button>
         </form>
-        {
-          this.state.weatherLoc && <Home city={this.state.weatherLoc} />
-        }
+        {this.state.weatherLoc && <Home city={this.state.weatherLoc} />}
       </div>
-    )
+    );
   }
 }
