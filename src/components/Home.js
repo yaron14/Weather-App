@@ -79,19 +79,22 @@ export default class Home extends Component {
           Weather forecast in {this.state.current.data[0].city_name}, {this.state.current.data[0].country_code}{" "}
         </h3>
         <div>
-          <h4>Current Temp: {Math.floor(this.state.current.data[0].temp)}</h4>
+          <h4>Current Temp: {this.state.current.data[0].temp}</h4>
         </div>
         <div className="day-display">
           {this.state.daily.data.map((data, i) => (
             <div key={i} style={{ paddingRight: "25px", paddingBottom: "20px" }}>
-              <div>
+              <div className="img-container">
                 <Link
                   to={{
                     pathname: `/hourly/${data.datetime}`,
                     state: this.state.hourly
                   }}
                 >
-                  <img src={`https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`} alt="_weather" />
+                  <img src={`https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`} alt="_weather" className="image" />
+                  <div className="overlay">
+                    <div className="text">Hourly forecast</div>
+                  </div>
                 </Link>
               </div>
               <div className="weather-info">
@@ -99,12 +102,12 @@ export default class Home extends Component {
                   <strong>Weather on</strong> {data.datetime}:{" "}
                 </span>
                 <span className="hourly-weather">Average temp: {data.temp}C </span>
-                <span>{data.weather.description} </span>
+                <span className="hourly-weather">{data.weather.description} </span>
                 <span>
-                  <strong>Min Temp:</strong> {data.min_temp}{" "}
+                  <strong>Min Temp:</strong> {data.min_temp}C{" "}
                 </span>
                 <span>
-                  <strong>Max Temp:</strong> {data.max_temp}{" "}
+                  <strong>Max Temp:</strong> {data.max_temp}C{" "}
                 </span>
               </div>
             </div>

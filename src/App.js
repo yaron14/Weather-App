@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import AppRoters from './routes/AppRouters';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import AppRoters from "./routes/AppRouters";
+import logo from "./logo.svg";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to my React weather app</h1>
         </header>
         <AppRoters />
       </div>
