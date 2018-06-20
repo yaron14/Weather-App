@@ -68,9 +68,9 @@ export default class Home extends Component {
         <div>
           <h4>Current Temp: {Math.floor(this.state.current.data[0].temp)}</h4>
         </div>
-        <div style={{ display: "flex" }}>
+        <div className="day-display">
           {this.state.daily.data.map((data, i) => (
-            <div key={i}>
+            <div key={i} style={{ paddingRight: "25px", paddingBottom: "20px" }}>
               <div>
                 <Link
                   to={{
@@ -81,7 +81,7 @@ export default class Home extends Component {
                   <img src={`https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`} alt="_weather" />
                 </Link>
               </div>
-              <div>
+              <div className="weather-info">
                 <span>
                   <strong>Weather on</strong> {data.datetime}:{" "}
                 </span>

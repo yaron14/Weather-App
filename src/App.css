@@ -30,3 +30,14 @@
 .hourly-weather {
   padding: 15px;
 }
+
+.day-display {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-info {
+  display: grid;
+}
