@@ -63,6 +63,9 @@ export default class Home extends Component {
     ).catch(err => console.log(err));
   }
   render() {
+    if (this.state.current.status_code) {
+      return <div>{this.state.current.status_message}</div>;
+    }
     if (this.state.error) {
       return <div>Please allow your location to use this app</div>;
     } else if (!Object.keys(this.state.daily).length || !Object.keys(this.state.current).length) {
