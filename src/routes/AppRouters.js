@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 const AppRoters = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div>
         <Switch>
           <Route path="/" component={Home} exact />
