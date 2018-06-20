@@ -73,7 +73,7 @@ export default class Home extends Component {
       <div>
         {!this.props.city && <Link to="/search">Search for location</Link>}
         <h3>
-          Weather and forecasts in {this.state.current.data[0].city_name}, {this.state.current.data[0].country_code}{" "}
+          Weather forecast in {this.state.current.data[0].city_name}, {this.state.current.data[0].country_code}{" "}
         </h3>
         <div>
           <h4>Current Temp: {Math.floor(this.state.current.data[0].temp)}</h4>

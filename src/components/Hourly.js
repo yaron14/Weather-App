@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default props => {
+const Hourly = props => {
   const getDayWeather = props.location.state.data.filter(date => date.datetime.split(":")[0] === props.match.params.date);
   console.log(props);
   return (
@@ -24,3 +24,5 @@ export default props => {
     </div>
   );
 };
+
+export default Hourly;
