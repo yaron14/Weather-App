@@ -7,16 +7,24 @@ export default class Home extends Component {
     this.state = {
       current: {},
       daily: {},
-      hourly: {}
+      hourly: {},
+      error: ""
     };
   }
   componentWillMount(value = this.props.city) {
     if (!this.props.city) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        this.fetchData({
-          info: `lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`
-        });
-      });
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          this.fetchData({
+            info: `lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`
+          });
+        },
+        err => {
+          this.setState({
+            error: err.message
+          });
+        }
+      );
     } else {
       this.fetchData({
         info: `city=${value}`
@@ -52,10 +60,12 @@ export default class Home extends Component {
           )
         )
       ]
-    ).catch(err => console.log(err) && <div>ERROR...</div>);
+    ).catch(err => console.log(err));
   }
   render() {
-    if (Object.keys(this.state.daily).length === 0 || Object.keys(this.state.current).length === 0) {
+    if (this.state.error) {
+      return <div>Please allow your location to use this app</div>;
+    } else if (!Object.keys(this.state.daily).length || !Object.keys(this.state.current).length) {
       return <div>LOADING...</div>;
     }
     console.log(this.state);
@@ -85,7 +95,7 @@ export default class Home extends Component {
                 <span>
                   <strong>Weather on</strong> {data.datetime}:{" "}
                 </span>
-                <span className="hourly-weather">{data.temp} </span>
+                <span className="hourly-weather">Average temp: {data.temp}C </span>
                 <span>{data.weather.description} </span>
                 <span>
                   <strong>Min Temp:</strong> {data.min_temp}{" "}
