@@ -26,8 +26,16 @@ export default class Home extends Component {
         }
       );
     } else {
+      const city =
+        value.split(", ").length <= 2
+          ? value.split(", ")[0]
+          : value
+              .split(", ")[0]
+              .split(" ")
+              .join("&");
+      const country = value.split(", ").length === 2 ? value.split(", ")[1] : value.split(", ")[2];
       this.fetchData({
-        info: `city=${value}`
+        info: `city=${city}&country=${country}`
       });
     }
   }
@@ -35,39 +43,61 @@ export default class Home extends Component {
     Promise.all(
       [
         fetch(`https://api.weatherbit.io/v2.0/current?${info}&key=171524f097eb4182a7a0ed68dbe0f01f`).then(res =>
-          res.json().then(current =>
-            this.setState({
-              current
-            })
-          )
+          res
+            .json()
+            .then(current =>
+              this.setState({
+                current
+              })
+            )
+            .catch(err =>
+              this.setState({
+                error: err
+              })
+            )
         )
       ],
       [
         fetch(`https://api.weatherbit.io/v2.0/forecast/daily?${info}&days=5&key=171524f097eb4182a7a0ed68dbe0f01f`).then(res =>
-          res.json().then(daily =>
-            this.setState({
-              daily
+          res
+            .json()
+            .then(daily =>
+              this.setState({
+                daily
+              })
+            )
+            .catch(err => {
+              this.setState({
+                error: err
+              });
             })
-          )
         )
       ],
       [
         fetch(`https://api.weatherbit.io/v2.0/forecast/3hourly?${info}&key=171524f097eb4182a7a0ed68dbe0f01f`).then(res =>
-          res.json().then(hourly =>
-            this.setState({
-              hourly
-            })
-          )
+          res
+            .json()
+            .then(hourly =>
+              this.setState({
+                hourly
+              })
+            )
+            .catch(err =>
+              this.setState({
+                error: err
+              })
+            )
         )
       ]
-    ).catch(err => console.log(err));
+    ).catch(err => console.lop(err));
   }
   render() {
     if (this.state.current.status_code) {
       return <div>{this.state.current.status_message}</div>;
     }
     if (this.state.error) {
-      return <div>Please allow your location to use this app</div>;
+      console.log(this.state.error);
+      return <div>{typeof this.state.error === "object" ? "ERROR!" : this.state.error}</div>;
     } else if (!Object.keys(this.state.daily).length || !Object.keys(this.state.current).length) {
       return <div>LOADING...</div>;
     }
