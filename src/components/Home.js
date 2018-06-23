@@ -11,7 +11,7 @@ export default class Home extends Component {
       error: ""
     };
   }
-  componentWillMount(value = this.props.city) {
+  componentDidMount() {
     if (!this.props.city) {
       navigator.geolocation.getCurrentPosition(
         pos => {
@@ -26,6 +26,7 @@ export default class Home extends Component {
         }
       );
     } else {
+      const value = this.props.city;
       const city =
         value.split(", ").length <= 2
           ? value.split(", ")[0]
@@ -35,7 +36,7 @@ export default class Home extends Component {
               .join("&");
       const country = value.split(", ").length === 2 ? value.split(", ")[1] : value.split(", ")[2];
       this.fetchData({
-        info: `city=${city}&country=${country}`
+        info: `city=${city}&country=${country ? country : ""}`
       });
     }
   }

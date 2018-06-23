@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Home from "./Home";
 import { Link } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
+import Home from "./Home";
 
 let locations = [];
 
@@ -14,9 +14,8 @@ const fetchData = city => {
       .json()
       .then(
         data =>
-          (locations = data.predictions.map((loc, i) => {
+          (locations = data.predictions.map(loc => {
             return {
-              index: i,
               name: loc.description
             };
           }))
@@ -76,6 +75,12 @@ export default class WeatherSearch extends Component {
     });
   };
 
+  handleClick = e => {
+    this.setState({
+      dispatch: "dispath"
+    });
+  };
+
   render() {
     const { value, suggestions, isLoading, dispatch } = this.state;
     const inputProps = {
@@ -90,15 +95,18 @@ export default class WeatherSearch extends Component {
         <div className="status">
           <strong>Status:</strong> {status}
         </div>
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          alwaysRenderSuggestions={true}
-          inputProps={inputProps}
-        />
+        <div style={{ display: "inline-flex" }}>
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            // alwaysRenderSuggestions={true}
+            inputProps={inputProps}
+          />
+          <button onClick={this.handleClick}>Search!</button>
+        </div>
         {dispatch && <Home city={value} />}
       </div>
     );
