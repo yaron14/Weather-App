@@ -5,7 +5,7 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: {},
+      current: [],
       daily: {},
       hourly: {},
       error: ""
@@ -48,7 +48,7 @@ export default class Home extends Component {
             .json()
             .then(current =>
               this.setState({
-                current
+                current: current.data
               })
             )
             .catch(err =>
@@ -99,7 +99,7 @@ export default class Home extends Component {
     if (this.state.error) {
       console.log(this.state.error);
       return <div>{typeof this.state.error === "object" ? "ERROR!" : this.state.error}</div>;
-    } else if (!Object.keys(this.state.daily).length || !Object.keys(this.state.current).length) {
+    } else if (!Object.keys(this.state.daily).length || !this.state.current.length) {
       return <div>LOADING...</div>;
     }
     console.log(this.state);
@@ -107,10 +107,10 @@ export default class Home extends Component {
       <div>
         {!this.props.city && <Link to="/search">Search for location</Link>}
         <h3>
-          Weather forecast in {this.state.current.data[0].city_name}, {this.state.current.data[0].country_code}{" "}
+          Weather forecast in {this.state.current[0].city_name}, {this.state.current[0].country_code}{" "}
         </h3>
         <div>
-          <h4>Current Temp: {this.state.current.data[0].temp}</h4>
+          <h4>Current Temp: {this.state.current[0].temp}C</h4>
         </div>
         <div className="day-display">
           {this.state.daily.data.map((data, i) => (
